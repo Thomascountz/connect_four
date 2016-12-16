@@ -1,11 +1,11 @@
 # Connectfour game board array and methods
-SQUARE = "\u2610".encode('utf-8')
-
 class Board
+  attr_reader :play_area
+
   def initialize
     @play_area = create_play_area
   end
-  
+
   def create_play_area
     play_area = []
     6.times do |row|
@@ -16,7 +16,7 @@ class Board
     end
     play_area
   end
-  
+
   def display
     print " 1    2    3    4    5    6    7 \n"
     6.times do |row|
@@ -27,5 +27,4 @@ class Board
     end
     nil
   end
-
 end
