@@ -1,14 +1,19 @@
 require_relative 'spec_helper'
 
 describe 'Board' do
-  before(:each) do
-    @board = Board.new
-  end
 
   describe '#new' do
-    context 'calls create_play_area' do
-      it 'creates an array #play_area' do
-        expect(@board.play_area).to be_a(Array)
+    before(:each) do
+      @board = Board.new
+    end
+    
+    context 'creates a game board play area' do
+      it 'instantiates play_area' do
+        expect(@board).to respond_to(:play_area)
+      end
+      
+      it 'is an array' do
+        expect(@board.play_area).to be_kind_of(Array)
       end
 
       it 'has six rows' do
