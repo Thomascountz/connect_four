@@ -27,4 +27,8 @@ class Board
     end
     nil
   end
+
+  def play(column)
+    @play_area[5][column - 1] = 'X'
+  end
 end

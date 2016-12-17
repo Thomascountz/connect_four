@@ -2,8 +2,8 @@
 class Player
   attr_reader :name, :token
 
-  def initialize(name, token)
-    @name = name
-    @token = token
+  def initialize(args = {})
+    @name = args.fetch(:name, nil)
+    @token = args.fetch(:token, nil)
   end
 end
