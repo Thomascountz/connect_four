@@ -59,32 +59,10 @@ describe 'Board' do
     end
   end
 
-  describe '#diagonal_pos' do
-    context 'when there are four concecutive tokens in a positive diagonal' do
-      it 'returns true' do
-        board.instance_variable_set(:@play_area,
-                                    [['.', '.', '.', '.', 'O', '.', '.'],
-                                     ['.', '.', '.', 'O', '.', '.', '.'],
-                                     ['.', '.', 'O', '.', '.', '.', '.'],
-                                     ['.', 'O', '.', '.', '.', '.', '.'],
-                                     ['.', '.', '.', '.', '.', '.', '.'],
-                                     ['.', '.', '.', '.', '.', '.', '.']])
-        expect(board.diagonal_pos(2, 2, 'O')).to eq(4)
-      end
-    end
-  end
-
+  
   describe '#win?' do
     context 'when there are four concecutive tokens in a horizontal row' do
-      xit 'returns true' do
-        board.instance_variable_set(:@play_area,
-                                    [['.', '.', '.', '.', '.', '.', '.'],
-                                     ['.', '.', '.', '.', '.', '.', '.'],
-                                     ['.', 'O', 'O', 'O', 'O', '.', '.'],
-                                     ['.', '.', '.', '.', '.', '.', '.'],
-                                     ['.', '.', '.', '.', '.', '.', '.'],
-                                     ['.', '.', '.', '.', '.', '.', '.']])
-      end
+      it 'returns true'
     end
     context 'when there are four concecutive tokens in a vertical row' do
       it 'returns true'

@@ -44,28 +44,5 @@ class Board
   def win?
   end
 
-  def diagonal_pos(row, column, token)
-    count = 1 if @play_area[row][column] == token
-    new_row = row
-    new_column = column
-
-    until @play_area[new_row][new_column] != token
-      new_row -= 1
-      new_column += 1
-      count += 1
-      return count if count == 4
-    end
-
-    new_row = row
-    new_column = column
-
-    until @play_area[new_row][new_column] != token
-      new_row += 1
-      new_column -= 1
-      count += 1
-      return count if count == 4
-    end
-
-    count
-  end
 end
+
