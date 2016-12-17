@@ -1,3 +1,4 @@
+require 'pry'
 # Connectfour game board array and methods
 class Board
   attr_reader :play_area
@@ -10,15 +11,15 @@ class Board
     play_area = []
     6.times do |row|
       play_area << []
-      7.times do |column|
-        play_area[row] << "#{row + 1}-#{column + 1}"
+      7.times do |_column|
+        play_area[row] << '.'
       end
     end
     play_area
   end
 
   def display
-    print " 1    2    3    4    5    6    7 \n"
+    print "1  2  3  4  5  6  7 \n"
     6.times do |row|
       7.times do |column|
         print "#{@play_area[row][column]}  "
@@ -29,6 +30,42 @@ class Board
   end
 
   def play(column)
-    @play_area[5][column - 1] = 'X'
+    row = 5
+    column -= 1
+
+    until @play_area[row][column] == '.'
+      row -= 1
+      return nil if row < 0
+    end
+
+    @play_area[row][column] = 'X'
+  end
+
+  def win?
+  end
+
+  def diagonal_pos(row, column, token)
+    count = 1 if @play_area[row][column] == token
+    new_row = row
+    new_column = column
+
+    until @play_area[new_row][new_column] != token
+      new_row -= 1
+      new_column += 1
+      count += 1
+      return count if count == 4
+    end
+
+    new_row = row
+    new_column = column
+
+    until @play_area[new_row][new_column] != token
+      new_row += 1
+      new_column -= 1
+      count += 1
+      return count if count == 4
+    end
+
+    count
   end
 end
