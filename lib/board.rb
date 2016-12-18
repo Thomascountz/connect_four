@@ -41,16 +41,24 @@ class Board
     @play_area[row][column] = 'X'
   end
 
-  def win?(token, row = 0, column = 0, count = 0)
-    return true if count == 4
-    return if !row.between?(0, 5) && !column.between?(0, 6)
+  def win?(args = {})
+    token   = args.fetch(:token, nil)
+    row     = args.fetch(:row, nil)
+    column  = args.fetch(:column, nil)
 
-    # checks for horizontal wins
-    win?(token, row += 1, column = 0, count = 0) if column > 6
-    if @play_area[row][column] == token
-      win?(token, row, column += 1, count += 1)
-    else
-      win?(token, row, column += 1, count)
+    count = 0
+
+    4.times do |i|
+      break if count == 4
+      break unless row + i < 5 && row - i > 0 && column + i < 6 && column - i > 0
+      break unless 
+
+      count += 1 if @play_area[row][column + i] == token
+      count += 1 if @play_area[row][column - i] == token
+      count += 1 if @play_area[row + i][column] == token
+      count += 1 if @play_area[row - i][column] == token
     end
+
+    count == 4 ? true : false
   end
 end

@@ -63,23 +63,60 @@ describe 'Board' do
     context 'when there are four concecutive tokens in a horizontal row' do
       it 'returns true' do
         board.instance_variable_set(:@play_area,
-                                    [['.', '.', '.', '.', 'O', '.', '.'],
-                                     ['.', 'X', '.', 'O', 'O', '.', '.'],
-                                     ['.', 'O', '.', 'O', 'X', '.', '.'],
+                                    [['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
                                      ['.', 'X', 'X', 'X', 'X', '.', '.'],
-                                     ['.', 'O', 'O', 'X', 'O', 'O', '.'],
-                                     ['O', 'X', 'X', 'X', 'O', 'X', '.']])
-        expect(board.win?('X')).to be true
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.']])
+        expect(board.win?(token: 'X', row: 3, column: 3)).to be true
       end
     end
     context 'when there are four concecutive tokens in a vertical row' do
-      it 'returns true'
+      it 'returns true' do
+        board.instance_variable_set(:@play_area,
+                                    [['.', '.', 'X', '.', '.', '.', '.'],
+                                     ['.', '.', 'X', '.', '.', '.', '.'],
+                                     ['.', '.', 'X', '.', '.', '.', '.'],
+                                     ['.', '.', 'X', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.']])
+        expect(board.win?(token: 'X', row: 1, column: 2)).to be true
+      end
     end
     context 'when there are four concecutive tokens in a diagonal row' do
-      it 'returns true'
+      it 'returns true on positive diagonals' do
+        board.instance_variable_set(:@play_area,
+                                    [['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', 'X', '.', '.'],
+                                     ['.', '.', '.', 'X', '.', '.', '.'],
+                                     ['.', '.', 'X', '.', '.', '.', '.'],
+                                     ['.', 'X', '.', '.', '.', '.', '.']])
+        expect(board.win?(token: 'X', row: 4, column: 2)).to be true
+      end
+      it 'returns true on negative diagonals' do
+        board.instance_variable_set(:@play_area,
+                                    [['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', 'X', '.', '.', '.', '.', '.'],
+                                     ['.', '.', 'X', '.', '.', '.', '.'],
+                                     ['.', '.', '.', 'X', '.', '.', '.'],
+                                     ['.', '.', '.', '.', 'X', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.']])
+        expect(board.win?(token: 'X', row: 2, column: 2)).to be true
+      end
     end
     context 'when there are not four concecutive tokens in a row' do
-      it 'returns false'
+      it 'returns false' do
+        board.instance_variable_set(:@play_area,
+                                    [['.', 'X', 'O', '.', 'O', '.', '.'],
+                                     ['.', 'X', 'X', 'O', 'O', '.', '.'],
+                                     ['.', 'O', 'X', 'O', 'X', '.', 'X'],
+                                     ['X', 'X', 'X', 'O', 'X', '.', 'O'],
+                                     ['O', 'O', 'O', 'X', 'O', 'O', 'O'],
+                                     ['O', 'X', 'X', 'X', 'O', 'X', 'O']])
+        expect(board.win?(token: 'X', row: 3, column: 3)).to be false
+      end
     end
   end
 end
