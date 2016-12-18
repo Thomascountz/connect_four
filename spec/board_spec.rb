@@ -108,6 +108,7 @@ describe 'Board' do
     end
     context 'when there are not four concecutive tokens in a row' do
       it 'returns false' do
+        # rubocop:disable Style/WordArray
         board.instance_variable_set(:@play_area,
                                     [['.', 'X', 'O', '.', 'O', '.', '.'],
                                      ['.', 'X', 'X', 'O', 'O', '.', '.'],
@@ -115,6 +116,7 @@ describe 'Board' do
                                      ['X', 'X', 'X', 'O', 'X', '.', 'O'],
                                      ['O', 'O', 'O', 'X', 'O', 'O', 'O'],
                                      ['O', 'X', 'X', 'X', 'O', 'X', 'O']])
+        # rubocop:enable Style/WordArray
         expect(board.win?(token: 'X', row: 3, column: 3)).to be false
       end
     end
