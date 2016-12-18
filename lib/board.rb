@@ -41,8 +41,16 @@ class Board
     @play_area[row][column] = 'X'
   end
 
-  def win?
+  def win?(token, row = 0, column = 0, count = 0)
+    return true if count == 4
+    return if !row.between?(0, 5) && !column.between?(0, 6)
+
+    # checks for horizontal wins
+    win?(token, row += 1, column = 0, count = 0) if column > 6
+    if @play_area[row][column] == token
+      win?(token, row, column += 1, count += 1)
+    else
+      win?(token, row, column += 1, count)
+    end
   end
-
 end
-

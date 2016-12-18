@@ -25,14 +25,14 @@ describe 'Board' do
 
   describe '#play' do
     context 'when the column is empty' do
-      it 'places a value in the bottom row of a given column' do
+      it 'places a token in the bottom row of a given column' do
         board.play(5)
         expect(board.play_area[5][4]).to eq('X')
       end
     end
 
     context 'when the column is not empty' do
-      it 'places a value in the first empty row' do
+      it 'places a token in the first empty row' do
         board.instance_variable_set(:@play_area,
                                     [['.', '.', '.', '.', '.', '.', '.'],
                                      ['.', '.', '.', '.', '.', '.', '.'],
@@ -48,21 +48,29 @@ describe 'Board' do
     context 'when the column is full' do
       it 'returns nil' do
         board.instance_variable_set(:@play_area,
-                                    [['.', '.', '.', '.', 'O', '.', '.'],
+                                    [['.', '.', '.', '.', 'X', '.', '.'],
                                      ['.', '.', '.', '.', 'O', '.', '.'],
                                      ['.', '.', '.', '.', 'O', '.', '.'],
                                      ['.', '.', '.', '.', 'O', '.', '.'],
-                                     ['.', '.', '.', '.', 'O', '.', '.'],
+                                     ['.', '.', '.', '.', 'X', '.', '.'],
                                      ['.', '.', '.', '.', 'O', '.', '.']])
         expect(board.play(5)).to be_nil
       end
     end
   end
 
-  
   describe '#win?' do
     context 'when there are four concecutive tokens in a horizontal row' do
-      it 'returns true'
+      it 'returns true' do
+        board.instance_variable_set(:@play_area,
+                                    [['.', '.', '.', '.', 'O', '.', '.'],
+                                     ['.', 'X', '.', 'O', 'O', '.', '.'],
+                                     ['.', 'O', '.', 'O', 'X', '.', '.'],
+                                     ['.', 'X', 'X', 'X', 'X', '.', '.'],
+                                     ['.', 'O', 'O', 'X', 'O', 'O', '.'],
+                                     ['O', 'X', 'X', 'X', 'O', 'X', '.']])
+        expect(board.win?('X')).to be true
+      end
     end
     context 'when there are four concecutive tokens in a vertical row' do
       it 'returns true'
