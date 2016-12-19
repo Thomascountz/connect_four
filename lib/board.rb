@@ -31,7 +31,7 @@ class Board
   def play(args = {})
     token   = args.fetch(:token, nil)
     column  = args.fetch(:column, nil)
-    
+
     row = 5
     column -= 1
 
@@ -41,8 +41,8 @@ class Board
     end
 
     @play_area[row][column] = token
-    
-    {token: token, row: row, column: column}
+
+    { token: token, row: row, column: column }
   end
 
   def win?(args = {})
