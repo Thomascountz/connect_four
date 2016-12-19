@@ -8,12 +8,11 @@ class Game
     @player_x = args.fetch(:player_x, nil)
     @player_o = args.fetch(:player_o, nil)
     @current_player = [@player_x, @player_o].sample
-    # prompt
   end
 
   def prompt
     puts "#{@current_player.name}, it's your turn."
-    puts "Enter the column number where you'd like to play"
+    puts "Enter the column number where you'd like to play #{@current_player.token}."
     @board.display
 
     column = get_input
@@ -23,9 +22,12 @@ class Game
       column = get_input
     end
 
-    game_over if @board.win?(play) == true
+    game_won if @board.win?(play)
+    game_tied if @board.tied?
 
     @current_player = switch_players
+
+    puts "\n"
 
     prompt
   end
@@ -42,7 +44,7 @@ class Game
       return false
     end
 
-    input.between?(1, 6) ? true : false
+    input.between?(1, 7) ? true : false
   end
 
   def switch_players
@@ -50,9 +52,15 @@ class Game
     return @player_o if @current_player == @player_x
   end
 
-  def game_over
+  def game_won
     puts "Congratulations, #{@current_player.name}, you've won the game!"
+    @board.display
     exit
+  end
+
+  def game_tied
+    puts "There's no winner. The game is tied."
+    @board.display
   end
 end
 

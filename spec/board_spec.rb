@@ -161,4 +161,29 @@ describe 'Board' do
       end
     end
   end
+
+  describe '#tied?' do
+    it 'returns true when all spaces are filled and there is no winner' do
+      board = Board.new
+      board.instance_variable_set(:@play_area,
+                                  [%w(O X O X O X O),
+                                   %w(O X O X O X O),
+                                   %w(X O X O X O X),
+                                   %w(O X O X O X O),
+                                   %w(O X O X O X O),
+                                   %w(X O X O X O X)])
+      expect(board.tied?).to be true
+    end
+    it 'returns false when all spaces are not filled yet' do
+      board = Board.new
+      board.instance_variable_set(:@play_area,
+                                  [['O', 'X', '.', 'X', 'O', 'X', 'O'],
+                                   %w(O X O X O X O),
+                                   %w(X O X O X O X),
+                                   %w(O X O X O X O),
+                                   %w(O X O X O X O),
+                                   %w(X O X O X O X)])
+      expect(board.tied?).to be false
+    end
+  end
 end

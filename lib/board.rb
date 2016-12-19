@@ -1,4 +1,3 @@
-require 'pry'
 # Connectfour game board array and methods
 class Board
   attr_reader :play_area
@@ -112,6 +111,11 @@ class Board
       return true if count == 5
     end
 
+    false
+  end
+
+  def tied?
+    return true unless @play_area.flatten.include?('.')
     false
   end
 end
