@@ -1,3 +1,4 @@
+require 'pry'
 # Connectfour game board array and methods
 class Board
   attr_reader :play_area
@@ -50,18 +51,67 @@ class Board
     row     = args.fetch(:row, nil)
     column  = args.fetch(:column, nil)
 
+    horizontal_win?(token: token, row: row, column: column) ||
+      vertical_win?(token: token, row: row, column: column) ||
+      diagonal_win?(token: token, row: row, column: column)
+  end
+
+  def horizontal_win?(args = {})
+    token   = args.fetch(:token, nil)
+    row     = args.fetch(:row, nil)
+    column  = args.fetch(:column, nil)
+
     count = 0
 
     4.times do |i|
-      break if count == 4
-      # this immediately breaks when column or row is 0
-      break unless row + i <= 5 && row - i > 0 && column + i <= 6 && column - i > 0
-      count += 1 if @play_area[row][column + i] == token
-      count += 1 if @play_area[row][column - i] == token
-      count += 1 if @play_area[row + i][column] == token
-      count += 1 if @play_area[row - i][column] == token
+      count += 1 if column + i <= 6 && @play_area[row][column + i] == token
+      count += 1 if column - i >= 0 && @play_area[row][column - i] == token
+      return true if count == 5
     end
 
-    count == 4 ? true : false
+    false
+  end
+
+  def vertical_win?(args = {})
+    token   = args.fetch(:token, nil)
+    row     = args.fetch(:row, nil)
+    column  = args.fetch(:column, nil)
+
+    count = 0
+
+    4.times do |i|
+      # binding.pry
+      count += 1 if row + i <= 5 && @play_area[row + i][column] == token
+      count += 1 if row - i >= 0 && @play_area[row - i][column] == token
+      return true if count == 5
+    end
+
+    false
+  end
+
+  def diagonal_win?(args = {})
+    token   = args.fetch(:token, nil)
+    row     = args.fetch(:row, nil)
+    column  = args.fetch(:column, nil)
+
+    count = 0
+
+    4.times do |i|
+      # binding.pry
+      count += 1 if row + i <= 5 && column - i >= 0 && @play_area[row + i][column - i] == token
+      count += 1 if row - i >= 0 && column + i <= 6 && @play_area[row - i][column + i] == token
+      return true if count == 5
+    end
+
+    count = 0
+
+    4.times do |i|
+      # binding.pry
+      count += 1 if row + i <= 5 && column + i <= 6 && @play_area[row + i][column + i] == token
+      count += 1 if row - i >= 0 && column - i >= 0 && @play_area[row - i][column - i] == token
+      return true if count == 5
+    end
+
+    false
   end
 end

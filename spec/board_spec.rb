@@ -137,7 +137,7 @@ describe 'Board' do
                                      ['O', 'O', 'O', 'X', 'O', 'O', 'O'],
                                      ['O', 'X', 'X', 'X', 'O', 'X', 'O']])
         # rubocop:enable Style/WordArray
-        expect(board.win?(token: 'X', row: 3, column: 3)).to be false
+        expect(board.win?(token: 'O', row: 3, column: 3)).to be false
       end
       it 'returns false' do
         board.instance_variable_set(:@play_area,
@@ -148,6 +148,16 @@ describe 'Board' do
                                      ['O', '.', '.', '.', '.', '.', '.'],
                                      ['O', '.', '.', '.', '.', '.', '.']])
         expect(board.win?(token: 'O', row: 4, column: 0)).to be false
+      end
+      it 'returns false' do
+        board.instance_variable_set(:@play_area,
+                                    [['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', 'X', 'X', 'X', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.']])
+        expect(board.win?(token: 'X', row: 2, column: 3)).to be false
       end
     end
   end
