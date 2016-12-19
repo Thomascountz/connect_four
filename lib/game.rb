@@ -63,7 +63,3 @@ class Game
     @board.display
   end
 end
-
-player_x = Player.new(name: 'Thomas', token: 'X')
-player_o = Player.new(name: 'Chris', token: 'O')
-Game.new(player_x: player_x, player_o: player_o)
