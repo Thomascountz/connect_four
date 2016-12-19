@@ -54,7 +54,8 @@ class Board
 
     4.times do |i|
       break if count == 4
-      break unless row + i < 5 && row - i > 0 && column + i < 6 && column - i > 0
+      # this immediately breaks when column or row is 0
+      break unless row + i <= 5 && row - i > 0 && column + i <= 6 && column - i > 0
       count += 1 if @play_area[row][column + i] == token
       count += 1 if @play_area[row][column - i] == token
       count += 1 if @play_area[row + i][column] == token
