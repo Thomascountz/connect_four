@@ -1,4 +1,3 @@
-require 'pry'
 # Connectfour game board array and methods
 class Board
   attr_reader :play_area
@@ -29,16 +28,21 @@ class Board
     nil
   end
 
-  def play(column)
+  def play(args = {})
+    token   = args.fetch(:token, nil)
+    column  = args.fetch(:column, nil)
+    
     row = 5
     column -= 1
 
     until @play_area[row][column] == '.'
       row -= 1
-      return nil if row < 0
+      return false if row < 0
     end
 
-    @play_area[row][column] = 'X'
+    @play_area[row][column] = token
+    
+    {token: token, row: row, column: column}
   end
 
   def win?(args = {})

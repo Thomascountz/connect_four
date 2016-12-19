@@ -26,7 +26,7 @@ describe 'Board' do
   describe '#play' do
     context 'when the column is empty' do
       it 'places a token in the bottom row of a given column' do
-        board.play(5)
+        board.play(column: 5, token: 'X')
         expect(board.play_area[5][4]).to eq('X')
       end
     end
@@ -40,7 +40,7 @@ describe 'Board' do
                                      ['.', '.', '.', '.', '.', '.', '.'],
                                      ['.', '.', '.', '.', 'O', '.', '.'],
                                      ['.', '.', '.', '.', 'O', '.', '.']])
-        board.play(5)
+        board.play(column: 5, token: 'X')
         expect(board.play_area[3][4]).to eq('X')
       end
     end
@@ -54,7 +54,7 @@ describe 'Board' do
                                      ['.', '.', '.', '.', 'O', '.', '.'],
                                      ['.', '.', '.', '.', 'X', '.', '.'],
                                      ['.', '.', '.', '.', 'O', '.', '.']])
-        expect(board.play(5)).to be_nil
+        expect(board.play(column: 5, token: 'X')).to be false
       end
     end
   end
@@ -82,6 +82,16 @@ describe 'Board' do
                                      ['.', '.', '.', '.', '.', '.', '.'],
                                      ['.', '.', '.', '.', '.', '.', '.']])
         expect(board.win?(token: 'X', row: 1, column: 2)).to be true
+      end
+      it 'returns true' do
+        board.instance_variable_set(:@play_area,
+                                    [['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['O', '.', '.', '.', '.', '.', '.'],
+                                     ['O', '.', '.', '.', '.', '.', '.'],
+                                     ['O', '.', '.', '.', '.', '.', '.'],
+                                     ['O', '.', '.', '.', '.', '.', '.']])
+        expect(board.win?(token: 'O', row: 3, column: 0)).to be true
       end
     end
     context 'when there are four concecutive tokens in a diagonal row' do
@@ -118,6 +128,16 @@ describe 'Board' do
                                      ['O', 'X', 'X', 'X', 'O', 'X', 'O']])
         # rubocop:enable Style/WordArray
         expect(board.win?(token: 'X', row: 3, column: 3)).to be false
+      end
+      it 'returns false' do
+        board.instance_variable_set(:@play_area,
+                                    [['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['.', '.', '.', '.', '.', '.', '.'],
+                                     ['O', '.', '.', '.', '.', '.', '.'],
+                                     ['O', '.', '.', '.', '.', '.', '.']])
+        expect(board.win?(token: 'O', row: 4, column: 0)).to be false
       end
     end
   end
