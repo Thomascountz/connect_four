@@ -164,7 +164,6 @@ describe 'Board' do
 
   describe '#tied?' do
     it 'returns true when all spaces are filled and there is no winner' do
-      board = Board.new
       # rubocop:disable Style/WordArray
       board.instance_variable_set(:@play_area,
                                   [['O', 'X', 'O', 'X', 'O', 'X', 'O'],
@@ -177,7 +176,6 @@ describe 'Board' do
       expect(board.tied?).to be true
     end
     it 'returns false when all spaces are not filled yet' do
-      board = Board.new
       # rubocop:disable Style/WordArray
       board.instance_variable_set(:@play_area,
                                   [['O', 'X', '.', 'X', 'O', 'X', 'O'],

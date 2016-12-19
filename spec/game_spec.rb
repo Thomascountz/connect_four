@@ -34,12 +34,12 @@ RSpec.describe Game do
   end
 
   describe '#input_valid?' do
-    it 'returns true if the argument is an integer between zero and six' do
+    it 'returns true if the argument is an integer between zero and seven' do
       game = Game.new
       expect(game.input_valid?(2)).to be true
     end
 
-    it 'returns false if the argument is an integer not between zero and six' do
+    it 'returns false if the argument is an integer not between zero and seven' do
       game = Game.new
       expect(game.input_valid?(8)).to be false
       expect(game.input_valid?(18)).to be false
